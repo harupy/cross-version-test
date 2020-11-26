@@ -1,0 +1,45 @@
+sklearn:
+  package_info:
+    pip_release: "scikit-learn"
+    pip_dev: |
+      pip install git+https://github.com/scikit-learn/scikit-learn.git@master
+
+  models:
+    minimum: "0.19.2"
+    maximum: "0.23.2"
+    run: |
+      pytest tests/sklearn/test_sklearn_model_export.py --large
+
+  autologging:
+    minimum: "0.22.2"
+    maximum: "0.23.2"
+    requirements: ["matplotlib"]
+    run: |
+      pytest tests/sklearn/test_sklearn_autolog.py --large
+
+pytorch:
+  package_info:
+    pip_release: "torch"
+
+  models:
+    minimum: "1.6.0"
+    maximum: "1.7.0"
+    requirements: ["scikit-learn", "torchvision"]
+    run: |
+      pytest tests/pytorch/test_pytorch_model_export.py --large
+
+xgboost:
+  package_info:
+    pip_release: "xgboost"
+    pip_dev: |
+      git clone --recursive https://github.com/dmlc/xgboost
+      cd xgboost/python-package
+      python setup.py install
+
+  models:
+    package: "xgboost"
+    minimum: "1.1.1"
+    maximum: "1.2.1"
+    requirements: ["scikit-learn"]
+    run: |
+      pytest tests/xgboost/test_xgboost_model_export.py --large
